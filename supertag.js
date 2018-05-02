@@ -6,6 +6,7 @@ let stateCheck = setInterval(() => {
 		console.log(getPageType());
 		console.log(getPageSize());
 		console.log(searchAdTags());
+		console.log(document.head.outerHTML);
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
@@ -113,40 +114,65 @@ function searchAdTags(){
 }
 
 function searchAdman(){
-      //Cria um RegExp para capturar o conteúdo dentro da tag informada.
-      var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");       
-      //--------
-      var match;
-      var i = 0;
+    //Cria um RegExp para capturar o conteúdo dentro da tag informada.
+   	var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");    
+
+    var headHTML = document.head.outerHTML;
+    var bodyHTML = document.body.outerHTML;
+
+    //--------
+    var match;
+    var i = 0;
 
       //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
-      if (match = admanTag.exec(document)){
+    if (match = admanTag.exec(headHTML)){
       	return 'Tem Adman';
-      }
-  }
+    }else if(match = admanTag.exec(bodyHTML)){
+    	return 'Tem Adman';
+    }else{
+    	return 'Não tem Adman';
+    }
+}
 
 function searchTail(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
-    var tailTag = new RegExp('tags.t.tailtarget.com', "g");       
+    var tailTag = new RegExp('tags.t.tailtarget.com', "g");      
+
+    var headHTML = document.head.outerHTML;
+    var bodyHTML = document.body.outerHTML;
+
     //--------
     var match;
     var i = 0;
 
     //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
-    if (match = tailTag.exec(document)){
+    if (match = tailTag.exec(headHTML)){
       	return 'Tem Tail';
+    }else if (match = tailTag.exec(bodyHTML)){
+      	return 'Tem Tail';
+    }else{
+    	return 'Não tem Tail';
     }
+
 }
 
 function searchSmartClip(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
-    var smartClipTag = new RegExp('//des.smartclip.net/', "g");       
+    var smartClipTag = new RegExp('//des.smartclip.net/', "g");   
+
+    var headHTML = document.head.outerHTML;
+    var bodyHTML = document.body.outerHTML;
+        
     //--------
     var match;
     var i = 0;
 
     //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
-    if (match = smartClipTag.exec(document)){
+    if (match = smartClipTag.exec(headHTML)){
       	return 'Tem smartclip';
+    }else if (match = smartClipTag.exec(bodyHTML)){
+      	return 'Tem smartclip';
+    }else{
+    	return 'Não tem smartclip';
     }
 }
