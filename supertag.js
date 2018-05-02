@@ -37,7 +37,7 @@ function getDevice(){
 //Get the current page size. Works AFTER the page load.
 function getPageSize(){
 	var body = document.body,
-    html = document.documentElement;
+	html = document.documentElement;
 
 	//Get WINDOW SIZE
 		//var that alocates the window width
@@ -47,11 +47,11 @@ function getPageSize(){
 
 	//Get PAGE sizes
 		//var that alocates the page width
-	var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
+		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
 		//var that alocates the page height
 		
-	return windowWidth + 'x' + pageHeight;
-}
+		return windowWidth + 'x' + pageHeight;
+	}
 
 //Get the page type (Home, Archive or Single post). Works AFTER the page load.
 function getPageType(){
@@ -107,4 +107,43 @@ function searchAdTags(){
 		//Return the exception.	
 		return e;
 	}
+}
+
+function searchAdman(){
+      //Cria um RegExp para capturar o conteúdo dentro da tag informada.
+      var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");       
+      //--------
+      var match;
+      var i = 0;
+
+      //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
+      if (match = admanTag.exec(document)){
+      	return 'Tem Adman';
+      }
+  }
+
+function searchTail(){
+    //Cria um RegExp para capturar o conteúdo dentro da tag informada.
+    var tailTag = new RegExp('tags.t.tailtarget.com', "g");       
+    //--------
+    var match;
+    var i = 0;
+
+    //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
+    if (match = tailTag.exec(document)){
+      	return 'Tem Tail';
+    }
+}
+
+function searchSmartClip(){
+    //Cria um RegExp para capturar o conteúdo dentro da tag informada.
+    var smartClipTag = new RegExp('//des.smartclip.net/', "g");       
+    //--------
+    var match;
+    var i = 0;
+
+    //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
+    if (match = smartClipTag.exec(document)){
+      	return 'Tem smartclip';
+    }
 }
