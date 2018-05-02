@@ -6,6 +6,9 @@ let stateCheck = setInterval(() => {
 		console.log(getPageType());
 		console.log(getPageSize());
 		console.log(searchAdTags());
+		console.log(searchAdman());
+		console.log(searchTail());
+		console.log(searchSmartClip());
 		clearInterval(stateCheck);
 	}
 }, 100);
