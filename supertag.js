@@ -177,7 +177,7 @@ function searchSmartClip(){
 }
 
 function searchRevContent(){
-	var divElement = getElementsByTagName('div');
+	var divElement = document.getElementsByTagName('div');
 	var revcontentTagLength = 0;
 
 	for(var i = 0; i <= divElement.length; i++){
