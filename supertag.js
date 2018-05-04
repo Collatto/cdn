@@ -181,7 +181,7 @@ function searchRevContent(){
 
 	for(var i = 0; i <= divElement.length; i++){
 		if(divElement[i].classList.contains('rc-bl-ads-by-revcontent')){
-			revContentTagLength++;
+			revcontentTagLength++;
 		}	 	
 	}
 
