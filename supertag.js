@@ -9,6 +9,7 @@ let stateCheck = setInterval(() => {
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
+		console.log(searchRevContent());
 		clearInterval(stateCheck);
 	}
 }, 100);
@@ -152,7 +153,6 @@ function searchTail(){
     }else{
     	return 'Não tem Tail';
     }
-
 }
 
 function searchSmartClip(){
@@ -161,7 +161,7 @@ function searchSmartClip(){
 
     var headHTML = document.head.outerHTML;
     var bodyHTML = document.body.outerHTML;
-        
+
     //--------
     var match;
     var i = 0;
@@ -174,4 +174,17 @@ function searchSmartClip(){
     }else{
     	return 'Não tem smartclip';
     }
+}
+
+function searchRevContent(){
+	var divElement = getElementsByTagName('div');
+	var revcontentTagLength = 0;
+
+	for(var i = 0; i <= divElement.length; i++){
+		if(divElement[i].classList.contains('rc-bl-ads-by-revcontent')){
+			revcontentTagLength++;
+		}
+	}
+
+	return revcontentTagLength;
 }
