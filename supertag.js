@@ -9,7 +9,7 @@ let stateCheck = setInterval(() => {
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
-		console.log(searchRevContent());
+		console.log('RevContent tags: ' + searchRevContent());
 		clearInterval(stateCheck);
 	}
 }, 100);
