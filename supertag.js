@@ -1,5 +1,4 @@
 console.log(getDevice());
-console.log('ta aqui');
 
 let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
@@ -177,13 +176,13 @@ function searchSmartClip(){
 }
 
 function searchRevContent(){
-	var divElement = document.getElementsByTagName('div');
+	var divElement = document.querySelectorAll("div");
 	var revcontentTagLength = 0;
 
 	for(var i = 0; i <= divElement.length; i++){
 		if(divElement[i].classList.contains('rc-bl-ads-by-revcontent')){
-			revcontentTagLength++;
-		}
+			revContentTagLength++;
+		}	 	
 	}
 
 	return revcontentTagLength;
