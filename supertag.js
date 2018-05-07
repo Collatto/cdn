@@ -8,6 +8,7 @@ let stateCheck = setInterval(() => {
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
+		console.log('Tags: ' + getIframeElements());
 		console.log('RevContent tags: ' + searchRevContent());
 		clearInterval(stateCheck);
 	}
@@ -186,4 +187,16 @@ function searchRevContent(){
 	}
 
 	return revcontentTagLength;
+}
+
+
+function getIframeElements(){
+	var iframeElements = document.querySelectorAll("iframe");
+	var iframeElementsLength = 0;
+
+	for(var i = 0; i <= iframeElements.length; i++){
+			iframeElementsLength++;	
+	}
+
+	return iframeElementsLength;
 }
