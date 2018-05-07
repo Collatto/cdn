@@ -1,5 +1,9 @@
 console.log(getDevice());
 
+/**
+	* @author Leonardo Collatto
+	* @Descrition check if the state of the document its 'complete' and run the code.
+*/
 let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
 		console.log(getPageType());
@@ -13,7 +17,11 @@ let stateCheck = setInterval(() => {
 	}
 }, 100);
 
-//get the user device
+/**
+	* @author Leonardo Collatto
+	* @Descrition identify which is the current device of the user.
+	* @returns {string} return the name of the current device. 
+*/
 function getDevice(){
 	//Check which is the user device
 	if(navigator.userAgent.match(/Android/i)){
@@ -37,7 +45,11 @@ function getDevice(){
 	}
 }
 
-//Get the current page size. Works AFTER the page load.
+/**
+	* @author Leonardo Collatto
+	* @Descrition Identify the width and height of the page to the user device.
+	* @returns {string} return the page size. ex.: 1440x8000 (window width and page height)
+*/
 function getPageSize(){
 	var body = document.body,
 	html = document.documentElement;
@@ -53,10 +65,15 @@ function getPageSize(){
 		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
 		//var that alocates the page height
 		
+		//return the window width and page height.
 		return windowWidth + 'x' + pageHeight;
 	}
 
-//Get the page type (Home, Archive or Single post). Works AFTER the page load.
+/**
+	* @author Leonardo Collatto
+	* @Descrition Get the page type (Home, Archive or Single post). Works AFTER the page load.
+	* @return {string}
+*/
 function getPageType(){
 	if(document.body.classList.contains('home')){
 		return 'Home';
@@ -69,36 +86,19 @@ function getPageType(){
 	}
 }
 
-//Set a cookie into the site
-function setCookie(cname, cvalue, exdays) {
-	var d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	var expires = "expires="+ d.toUTCString();
-	document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-//Get the site cookies
-function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-
-//Search Ad tags. Works AFTER the page load.
+/**
+	* @author Leonardo Collatto
+	* @Descrition Search if there is an iframe tag (and how much of it) on the page.
+	* @returns {number} return the length of the array tagIframe var. 
+	*
+	* How it works: The function run all the document searching all the iframe html tags 
+	* and return the length of it.
+*/
+/** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
 function searchAdTags(){
 	try {
-		//get all iframes elements on the document and put it into a var.
-		var tagIframe = document.getElementsByTagName('iframe');
+		//get all iframes elements on the document and put it into a var (array).
+		var tagIframe = document.body.getElementsByTagName('iframe');
 
 		//Check if has any iframe element on the document.
 		if(tagIframe != null){
@@ -112,6 +112,14 @@ function searchAdTags(){
 	}
 }
 
+/**
+	* @author Leonardo Collatto
+	* @Descrition Search if there is a adman tag on the page.
+	* @returns {string} If there is a adman tag return 'Tem Adman' else 'Não tem Adman'
+	*
+	* How it works: The function run all the document searching an specific string.
+	* This string its a pattern that its in every and only adman tags. Works AFTER the page load.
+*/
 function searchAdman(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
    	var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");    
@@ -133,6 +141,14 @@ function searchAdman(){
     }
 }
 
+/**
+	* @author Leonardo Collatto
+	* @Descrition Search if there is a tail tag on the page.
+	* @returns {string} If there is a tail tag return 'Tem Tail' else 'Não tem Tail'
+	*
+	* How it works: The function run all the document searching an specific string.
+	* This string its a pattern that its in every and only tail tags. Works AFTER the page load.
+*/
 function searchTail(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var tailTag = new RegExp('tags.t.tailtarget.com', "g");      
@@ -154,6 +170,14 @@ function searchTail(){
     }
 }
 
+/**
+	* @author Leonardo Collatto
+	* @Descrition Search if there is a smartclip tag on the page.
+	* @returns {string} If there is a smartclip tag return 'Tem Smartclip' else 'Não tem Smartclip'
+	*
+	* How it works: The function run all the document searching an specific string.
+	* This string its a pattern that its in every and only smartclip tags. Works AFTER the page load.
+*/
 function searchSmartClip(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var smartClipTag = new RegExp('//des.smartclip.net/', "g");   
