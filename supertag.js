@@ -4,11 +4,10 @@ let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
 		console.log(getPageType());
 		console.log(getPageSize());
-		console.log(searchAdTags());
+		console.log('AD tags: ' + searchAdTags());
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
-		console.log('Tags: ' + getIframeElements());
 		console.log('RevContent tags: ' + searchRevContent());
 		clearInterval(stateCheck);
 	}
@@ -176,7 +175,12 @@ function searchSmartClip(){
     }
 }
 
-function searchRevContent(){
+/*
+	searchRevContent() error:
+	Uncaught TypeError: Cannot read property 'classList' of undefined
+*/
+
+/*function searchRevContent(){
 	var divElement = document.querySelectorAll("div");
 	var revcontentTagLength = 0;
 
@@ -187,16 +191,4 @@ function searchRevContent(){
 	}
 
 	return revcontentTagLength;
-}
-
-
-function getIframeElements(){
-	var iframeElements = document.querySelectorAll("iframe");
-	var iframeElementsLength = 0;
-
-	for(var i = 0; i <= iframeElements.length; i++){
-			iframeElementsLength++;	
-	}
-
-	return iframeElementsLength;
-}
+}*/
