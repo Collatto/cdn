@@ -4,20 +4,19 @@ console.log(getDevice());
 	* @author Leonardo Collatto
 	* @Description check if the state of the document its 'complete' and run the code.
 */
-
-(function() {
-  console.log(getPageType());
-		console.log(getPageSize());
-		console.log('AD tags: ' + searchAdTags());
-		console.log(searchAdman());
-		console.log(searchTail());
-		console.log(searchSmartClip());
-		try{
-			createGrid();
-		}catch(e){
-			return e;
-		}
-})();
+document.addEventListener("DOMContentLoaded", function(event) {
+   	console.log(getPageType());
+	console.log(getPageSize());
+	console.log('AD tags: ' + searchAdTags());
+	console.log(searchAdman());
+	console.log(searchTail());
+	console.log(searchSmartClip());
+	try{
+		createGrid();
+	}catch(e){
+		return e;
+	}
+});
 /**
 	* @author Leonardo Collatto
 	* @Description identify which is the current device of the user.
