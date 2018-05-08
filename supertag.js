@@ -2,7 +2,7 @@ console.log(getDevice());
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition check if the state of the document its 'complete' and run the code.
+	* @Description check if the state of the document its 'complete' and run the code.
 */
 let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
@@ -12,6 +12,12 @@ let stateCheck = setInterval(() => {
 		console.log(searchAdman());
 		console.log(searchTail());
 		console.log(searchSmartClip());
+		try{
+			createGrid();
+		}catch(e){
+			return e;
+		}
+		
 		//console.log('RevContent tags: ' + searchRevContent());
 		clearInterval(stateCheck);
 	}
@@ -19,7 +25,7 @@ let stateCheck = setInterval(() => {
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition identify which is the current device of the user.
+	* @Description identify which is the current device of the user.
 	* @returns {string} return the name of the current device. 
 */
 function getDevice(){
@@ -47,7 +53,7 @@ function getDevice(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Identify the width and height of the page to the user device.
+	* @Description Identify the width and height of the page to the user device.
 	* @returns {string} return the page size. ex.: 1440x8000 (window width and page height)
 */
 function getPageSize(){
@@ -71,7 +77,7 @@ function getPageSize(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Get the page type (Home, Archive or Single post). Works AFTER the page load.
+	* @Description Get the page type (Home, Archive or Single post). Works AFTER the page load.
 	* @return {string}
 */
 function getPageType(){
@@ -88,7 +94,7 @@ function getPageType(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Search if there is an iframe tag (and how much of it) on the page.
+	* @Description Search if there is an iframe tag (and how much of it) on the page.
 	* @returns {number} return the length of the array tagIframe var. 
 	*
 	* How it works: The function run all the document searching all the iframe html tags 
@@ -114,7 +120,7 @@ function searchAdTags(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Search if there is a adman tag on the page.
+	* @Description Search if there is a adman tag on the page.
 	* @returns {string} If there is a adman tag return 'Tem Adman' else 'Não tem Adman'
 	*
 	* How it works: The function run all the document searching an specific string.
@@ -143,7 +149,7 @@ function searchAdman(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Search if there is a tail tag on the page.
+	* @Description Search if there is a tail tag on the page.
 	* @returns {string} If there is a tail tag return 'Tem Tail' else 'Não tem Tail'
 	*
 	* How it works: The function run all the document searching an specific string.
@@ -172,7 +178,7 @@ function searchTail(){
 
 /**
 	* @author Leonardo Collatto
-	* @Descrition Search if there is a smartclip tag on the page.
+	* @Description Search if there is a smartclip tag on the page.
 	* @returns {string} If there is a smartclip tag return 'Tem Smartclip' else 'Não tem Smartclip'
 	*
 	* How it works: The function run all the document searching an specific string.
@@ -216,3 +222,31 @@ function searchSmartClip(){
 
 	return revcontentTagLength;
 }*/
+
+
+function createGrid(){
+	var divEl = document.createElement('div');
+
+	var divMain = divEl, divChild = divEl;
+
+	//Main Div Config
+	divMain.id = 'grid';
+	divMain.style.width = '100%';
+	divMain.style.height = '100%';
+	divMain.style.position = 'absolute';
+	divMain.style.display = 'block';
+
+	//Children div config
+	divChild.style.width = 'calc(20% - 2px)';
+	divChild.style.border = '1px solid red';
+	divChild.style.float = 'left';
+	divChild.style.height = '150px';
+
+	for(var i = 0; i < 12; i++){
+		var newDivChild = divChild;
+		newDivChild.id = 'pos'+i;
+		divMain.appendChild(newDivChild);
+	}
+
+	document.body.appendChild(divMain);
+}
