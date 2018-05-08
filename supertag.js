@@ -1,8 +1,16 @@
 console.log(getDevice());
 
+//Var to alocate the time that the page takes to load
+var time = 0;
+
+//Count the time 
+let timeLoad = setInterval(() => {
+ 	time++
+ }, 1);
+
 /**
 	* @author Leonardo Collatto
-	* @Description check if the state of the document its 'complete' and run the code.
+	* @Description wait the DOM load to execute an anonymous function
 */
 document.addEventListener("DOMContentLoaded", function(event) {
    	console.log(getPageType());
@@ -17,6 +25,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		return e;
 	}
 });
+
+/**
+	* @author Leonardo Collatto
+	* @Description check if the state of the document its 'complete' and run the code.
+*/
+let stateCheck = setInterval(() => {
+ 	if (document.readyState === 'complete') {
+ 		console.log('AD tags: ' + searchAdTags());
+ 		//console.log('RevContent tags: ' + searchRevContent());
+ 		clearInterval(timeLoad);
+ 		console.log('Tempo de carregamento em milisegundos: '+time);
+ 		clearInterval(stateCheck);
+ 	}
+ }, 100);
+
+
 /**
 	* @author Leonardo Collatto
 	* @Description identify which is the current device of the user.
@@ -219,6 +243,7 @@ function searchSmartClip(){
 
 
 function createGrid(){
+	console.log('the function its running');
 	var divEl = document.createElement('div');
 
 	var divMain = divEl, divChild = divEl;
@@ -243,4 +268,5 @@ function createGrid(){
 	}
 
 	document.body.appendChild(divMain);
+	console.log('the end of the function');
 }
