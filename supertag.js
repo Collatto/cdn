@@ -4,9 +4,9 @@ console.log(getDevice());
 	* @author Leonardo Collatto
 	* @Description check if the state of the document its 'complete' and run the code.
 */
-let stateCheck = setInterval(() => {
-	if (document.readyState === 'complete') {
-		console.log(getPageType());
+
+(function() {
+  console.log(getPageType());
 		console.log(getPageSize());
 		console.log('AD tags: ' + searchAdTags());
 		console.log(searchAdman());
@@ -17,12 +17,7 @@ let stateCheck = setInterval(() => {
 		}catch(e){
 			return e;
 		}
-		
-		//console.log('RevContent tags: ' + searchRevContent());
-		clearInterval(stateCheck);
-	}
-}, 100);
-
+})();
 /**
 	* @author Leonardo Collatto
 	* @Description identify which is the current device of the user.
