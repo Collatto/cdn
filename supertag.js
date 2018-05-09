@@ -124,6 +124,7 @@ function getPageType(){
 	* How it works: The function run all the document searching all the iframe html tags 
 	* and return the length of it.
 */
+
 /** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
 function searchAdTags(){
 	try {
@@ -307,24 +308,21 @@ function getAdGridPosition(){
 
 		for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
 			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
-				var tagIframePosTop = tagIframe[tagIframeNum].offsetTop;
-				var tagIframePosLeft = tagIframe[tagIframeNum].offsetLeft;
-				var divPosTop = divGrid[countDivPos].offsetTop;
-				var divPosLeft = divGrid[countDivPos].offsetLeft;
+				var tagIframePosTop = getPosition(tagIframe[tagIframeNum]).y;
+				var tagIframePosLeft = getPosition(tagIframe[tagIframeNum]).x;
+				var divPosTop = getPosition(divGrid[countDivPos]).y;
+				var divPosLeft = getPosition(divGrid[countDivPos]).x;
 				var divWidth = divGrid[countDivPos].offsetWidth;
 				var divHeight = divGrid[countDivPos].offsetHeight;
 
 				var maxPosX = divPosLeft + divWidth;
 				var maxPosY = divPosTop + divHeight;
 
-
-
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
 					console.log(tagIframePosLeft);
 					console.log(maxPosX);
 					console.log(tagIframePosTop);
 					console.log(maxPosY);
-
 					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
 				}
 			}
@@ -332,4 +330,32 @@ function getAdGridPosition(){
 	}else{
 		console.log('Não há anúncios nesta página para localizar.');
 	}	
+}
+
+
+// Helper function to get an element's exact position
+function getPosition(el) {
+  var xPos = 0;
+  var yPos = 0;
+ 
+  while (el) {
+    if (el.tagName == "BODY") {
+      // deal with browser quirks with body/window/document and page scroll
+      var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+      var yScroll = el.scrollTop || document.documentElement.scrollTop;
+ 
+      xPos += (el.offsetLeft - xScroll + el.clientLeft);
+      yPos += (el.offsetTop - yScroll + el.clientTop);
+    } else {
+      // for all other non-BODY elements
+      xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+      yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+    }
+ 
+    el = el.offsetParent;
+  }
+  return {
+    x: xPos,
+    y: yPos
+  };
 }
