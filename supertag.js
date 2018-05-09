@@ -305,9 +305,8 @@ function getAdGridPosition(){
 		var divGrid = document.querySelectorAll('.div_pos');
 		var tagIframe = document.body.getElementsByTagName('iframe');
 
-		for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
-			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
-
+		for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
+			for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
 				var tagIframePosTop = tagIframe[tagIframeNum].offsetTop;
 				var tagIframePosLeft = tagIframe[tagIframeNum].offsetLeft;
 				var divPosTop = divGrid[countDivPos].offsetTop;
@@ -315,8 +314,10 @@ function getAdGridPosition(){
 				var divWidth = divGrid[countDivPos].offsetWidth;
 				var divHeight = divGrid[countDivPos].offsetHeight;
 
-				var maxPos = divPosLeft + divWidth;
-				if(tagIframePosTop >= divPosTop && tagIframePosLeft>= divPosLeft && tagIframePosLeft < maxPos){
+				var maxPosX = divPosLeft + divWidth;
+				var maxPosY = divPosTop + divHeight;
+
+				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
 					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
 				}
 			}
