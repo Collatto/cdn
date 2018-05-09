@@ -15,7 +15,6 @@ let timeLoad = setInterval(() => {
 document.addEventListener("DOMContentLoaded", function(event) {
    	console.log(getPageType());
 	console.log(getPageSize());
-	console.log('AD tags: ' + searchAdTags());
 	console.log(searchAdman());
 	console.log(searchTail());
 	console.log(searchSmartClip());
@@ -33,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 let stateCheck = setInterval(() => {
  	if (document.readyState === 'complete') {
  		console.log('AD tags: ' + searchAdTags());
+ 		getAdGridPosition();
  		//console.log('RevContent tags: ' + searchRevContent());
  		clearInterval(timeLoad);
  		console.log('Tempo de carregamento em milisegundos: '+time);
@@ -89,8 +89,14 @@ function getPageSize(){
 		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
 		//var that alocates the page height
 		
+		var arraySizes = {
+				windowWidth: windowWidth,
+				windowHeight: windowHeight,
+				pageHeight: pageHeight
+		}
+
 		//return the window width and page height.
-		return windowWidth + 'x' + pageHeight;
+		return arraySizes;
 	}
 
 /**
@@ -243,10 +249,12 @@ function searchSmartClip(){
 
 
 function createGrid(){
-	console.log('the function its running');
-	var divEl = document.createElement('div');
+	var pageSizes = getPageSize();
+	var pageWidth = pageSizes.windowWidth;
+	var pageHeight = pageSizes.pageHeight;
 
-	var divMain = divEl, divChild = divEl;
+	var divMain = document.createElement('div');
+	var divChild = document.createElement('div')
 
 	//Main Div Config
 	divMain.id = 'grid';
@@ -254,19 +262,65 @@ function createGrid(){
 	divMain.style.height = '100%';
 	divMain.style.position = 'absolute';
 	divMain.style.display = 'block';
+	divMain.style.zIndex = '-100';
 
 	//Children div config
-	divChild.style.width = 'calc(20% - 2px)';
-	divChild.style.border = '1px solid red';
 	divChild.style.float = 'left';
-	divChild.style.height = '150px';
-
-	for(var i = 0; i < 12; i++){
-		var newDivChild = divChild;
-		newDivChild.id = 'pos'+i;
-		divMain.appendChild(newDivChild);
+	
+	var divWidth, divHeight;
+	var numDivX, numDivY;
+	for(var i = 0; i < 1000; i++){
+		if(pageWidth/i <= 320){
+			numDivX = i;		
+			divWidth = pageWidth/i;
+			divChild.style.width = divWidth+'px';
+			break;
+		}
 	}
 
-	document.body.appendChild(divMain);
-	console.log('the end of the function');
+	for(var i = 0; i < 1000; i++){
+		if(pageHeight/i <= 320){
+			numDivY = i;		
+			divHeight = pageHeight/i;
+			divChild.style.height = divHeight+'px';
+			break;
+		}
+	}
+
+
+	for(var i = 0; i < numDivX*numDivY; i++){	
+		divChild.id = 'pos'+i;	
+		divChild.classList.add('div_pos');
+		divMain.appendChild(divChild.cloneNode(false));
+	}
+	
+	document.body.insertBefore(divMain, document.body.firstChild);
+
+	
+
+}
+
+function getAdGridPosition(){
+	if(searchAdTags() > 0){
+		var divGrid = document.querySelectorAll('.div_pos');
+		var tagIframe = document.body.getElementsByTagName('iframe');
+
+		for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
+			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
+
+				var tagIframePosTop = tagIframe[tagIframeNum].offsetTop;
+				var tagIframePosLeft = tagIframe[tagIframeNum].offsetLeft;
+				var divPosTop = divGrid[countDivPos].offsetTop;
+				var divPosLeft = divGrid[countDivPos].offsetLeft;
+				var divWidth = divGrid[countDivPos].style.width;
+				var divHeight = divGrid[countDivPos].style.height;
+
+				if(tagIframePosTop >= divPosTop && tagIframePosLeft>= divPosLeft){
+					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
+				}
+			}
+		}
+	}else{
+		console.log('Não há anúncios nesta página para localizar.');
+	}	
 }
