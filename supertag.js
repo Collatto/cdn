@@ -312,8 +312,8 @@ function getAdGridPosition(){
 				var tagIframePosLeft = tagIframe[tagIframeNum].offsetLeft;
 				var divPosTop = divGrid[countDivPos].offsetTop;
 				var divPosLeft = divGrid[countDivPos].offsetLeft;
-				var divWidth = divGrid[countDivPos].style.width;
-				var divHeight = divGrid[countDivPos].style.height;
+				var divWidth = divGrid[countDivPos].offsetWidth;
+				var divHeight = divGrid[countDivPos].offsetHeight;
 
 				var maxPos = divPosLeft + divWidth;
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft>= divPosLeft && tagIframePosLeft < maxPos){
