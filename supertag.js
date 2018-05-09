@@ -319,10 +319,6 @@ function getAdGridPosition(){
 				var maxPosY = divPosTop + divHeight;
 
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
-					console.log(tagIframePosLeft);
-					console.log(maxPosX);
-					console.log(tagIframePosTop);
-					console.log(maxPosY);
 					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
 				}
 			}
