@@ -315,7 +315,7 @@ function getAdGridPosition(){
 				var divWidth = divGrid[countDivPos].style.width;
 				var divHeight = divGrid[countDivPos].style.height;
 
-				if(tagIframePosTop >= divPosTop && tagIframePosLeft>= divPosLeft){
+				if(tagIframePosTop >= divPosTop && tagIframePosLeft>= divPosLeft && tagIframePosLeft < divPosLeft+divWidth){
 					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
 				}
 			}
