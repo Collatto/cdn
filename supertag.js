@@ -86,12 +86,14 @@ function getPageSize(){
 
 	//Get PAGE sizes
 		//var that alocates the page width
-		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
+		var pageWidth = Math.max(body.scrollWidth, body.offsetWidth,html.clientWidth, html.scrollWidth, html.offsetWidth);
 		//var that alocates the page height
-		
+		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
+
 		var arraySizes = {
 				windowWidth: windowWidth,
 				windowHeight: windowHeight,
+				pageWidth: pageWidth,
 				pageHeight: pageHeight
 		}
 
@@ -251,7 +253,7 @@ function searchSmartClip(){
 
 function createGrid(){
 	var pageSizes = getPageSize();
-	var pageWidth = pageSizes.windowWidth;
+	var pageWidth = pageSizes.pageWidth;
 	var pageHeight = pageSizes.pageHeight;
 
 	var divMain = document.createElement('div');
@@ -296,9 +298,6 @@ function createGrid(){
 	}
 	
 	document.body.insertBefore(divMain, document.body.firstChild);
-
-	
-
 }
 
 function getAdGridPosition(){
@@ -308,10 +307,10 @@ function getAdGridPosition(){
 
 		for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
 			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
-				var tagIframePosTop = getPosition(tagIframe[tagIframeNum]).y;
-				var tagIframePosLeft = getPosition(tagIframe[tagIframeNum]).x;
-				var divPosTop = getPosition(divGrid[countDivPos]).y;
-				var divPosLeft = getPosition(divGrid[countDivPos]).x;
+				var tagIframePosTop = getElementPosition(tagIframe[tagIframeNum]).y;
+				var tagIframePosLeft = getElementPosition(tagIframe[tagIframeNum]).x;
+				var divPosTop = getElementPosition(divGrid[countDivPos]).y;
+				var divPosLeft = getElementPosition(divGrid[countDivPos]).x;
 				var divWidth = divGrid[countDivPos].offsetWidth;
 				var divHeight = divGrid[countDivPos].offsetHeight;
 
@@ -330,7 +329,7 @@ function getAdGridPosition(){
 
 
 // Helper function to get an element's exact position
-function getPosition(el) {
+function getElementPosition(el) {
   var xPos = 0;
   var yPos = 0;
  
