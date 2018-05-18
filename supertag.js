@@ -1,3 +1,6 @@
+
+
+
 //Var to alocate the time that the page takes to load
 var time = 0;
 
@@ -6,52 +9,51 @@ let timeLoad = setInterval(() => {
 	time++
 }, 1);
 
-/**
+/*
 	* @author Leonardo Collatto
 	* @Description wait the DOM load to execute an anonymous function
-	*/
+*/
 
-	document.addEventListener("DOMContentLoaded", function(event) {
-		try{
-			createGrid();
-		}catch(e){
-			return e;
-		}
-	});
+document.addEventListener("DOMContentLoaded", function(event) {
+	try{
+		createGrid();
+	}catch(e){
+		return e;
+	}
+});
 
-/**
+/*
 	* @author Leonardo Collatto
 	* @Description check if the state of the document its 'complete' and run the code.
-	*/
-	let stateCheck = setInterval(() => {
-		if (document.readyState === 'complete') {
-			var jsonData =
-			{
-				pageType: getPageType(),
-				pageSize: getPageSize(),
-				ads: {
-					tags: searchAdTags(),
-					adsPosition: getAdGridPosition(),
-					adman: searchAdman(),
-					tail: searchTail(),
-					smartClip: searchSmartClip()
-				},
-				userDevice: getDevice()
-
-			}
-			clearInterval(timeLoad);
-			console.log(jsonData);
-			clearInterval(stateCheck);
+*/
+let stateCheck = setInterval(() => {
+	if (document.readyState === 'complete') {
+		var jsonData =
+		{
+			pageType: getPageType(),
+			pageSize: getPageSize(),
+			ads: {
+				tags: searchAdTags(),
+				adsPosition: getAdGridPosition(),
+				adman: searchAdman(),
+				tail: searchTail(),
+				smartClip: searchSmartClip()
+			},
+			userDevice: getDevice()
 		}
-	}, 100);
+		clearInterval(timeLoad);
+		console.log(jsonData);
+		clearInterval(stateCheck);
+	}
+}, 100);
 
 
 /**
 	* @author Leonardo Collatto
 	* @Description identify which is the current device of the user.
 	* @returns {string} return the name of the current device. 
-	*/
-	function getDevice(){
+*/
+function getDevice(){
 	//Check which is the user device
 	if(navigator.userAgent.match(/Android/i)){
 		return 'Mobile android';
@@ -78,10 +80,10 @@ let timeLoad = setInterval(() => {
 	* @author Leonardo Collatto
 	* @Description Identify the width and height of the page to the user device.
 	* @returns {string} return the page size. ex.: 1440x8000 (window width and page height)
-	*/
-	function getPageSize(){
-		var body = document.body,
-		html = document.documentElement;
+*/
+function getPageSize(){
+	var body = document.body,
+	html = document.documentElement;
 
 	//Get WINDOW SIZE
 		//var that alocates the window width
@@ -102,26 +104,26 @@ let timeLoad = setInterval(() => {
 			pageHeight: pageHeight
 		}
 
-		//return the window width and page height.
-		return arraySizes;
-	}
+	//return the window width and page height.
+	return arraySizes;
+}
 
 /**
 	* @author Leonardo Collatto
 	* @Description Get the page type (Home, Archive or Single post). Works AFTER the page load.
 	* @return {string}
-	*/
-	function getPageType(){
-		if(document.body.classList.contains('home')){
-			return 'Home';
-		}else if(document.body.classList.contains('archive')){
-			return 'Capa/Categoria';
-		}else if(document.body.classList.contains('single')){
-			return 'Interna';
-		}else{
-			return 'Não definida';
-		}
+*/
+function getPageType(){
+	if(document.body.classList.contains('home')){
+		return 'Home';
+	}else if(document.body.classList.contains('archive')){
+		return 'Capa/Categoria';
+	}else if(document.body.classList.contains('single')){
+		return 'Interna';
+	}else{
+		return 'Não definida';
 	}
+}
 
 /**
 	* @author Leonardo Collatto
@@ -130,11 +132,11 @@ let timeLoad = setInterval(() => {
 	*
 	* How it works: The function run all the document searching all the iframe html tags 
 	* and return the length of it.
-	*/
+*/
 
-	/** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
-	function searchAdTags(){
-		try {
+/** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
+function searchAdTags(){
+	try {
 		//get all iframes elements on the document and put it into a var (array).
 		var tagIframe = document.body.getElementsByTagName('iframe');
 
@@ -157,8 +159,8 @@ let timeLoad = setInterval(() => {
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only adman tags. Works AFTER the page load.
-	*/
-	function searchAdman(){
+*/
+function searchAdman(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");    
 
@@ -169,15 +171,15 @@ let timeLoad = setInterval(() => {
     var match;
     var i = 0;
 
-      //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
-      if (match = admanTag.exec(headHTML)){
+    //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
+    if (match = admanTag.exec(headHTML)){
       	return 'Tem Adman';
-      }else if(match = admanTag.exec(bodyHTML)){
+    }else if(match = admanTag.exec(bodyHTML)){
       	return 'Tem Adman';
-      }else{
+    }else{
       	return 'Não tem Adman';
-      }
-  }
+    }
+}
 
 /**
 	* @author Leonardo Collatto
@@ -186,8 +188,8 @@ let timeLoad = setInterval(() => {
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only tail tags. Works AFTER the page load.
-	*/
-	function searchTail(){
+*/
+function searchTail(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var tailTag = new RegExp('tags.t.tailtarget.com', "g");      
 
@@ -215,8 +217,8 @@ let timeLoad = setInterval(() => {
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only smartclip tags. Works AFTER the page load.
-	*/
-	function searchSmartClip(){
+*/
+function searchSmartClip(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var smartClipTag = new RegExp('//des.smartclip.net/', "g");   
 
@@ -240,7 +242,7 @@ let timeLoad = setInterval(() => {
 /*
 	searchRevContent() error:
 	Uncaught TypeError: Cannot read property 'classList' of undefined
-	*/
+*/
 
 /*function searchRevContent(){
 	var divElement = document.querySelectorAll("div");
@@ -362,3 +364,20 @@ return {
 	y: yPos
 };
 }
+
+
+/*------------------------------- SOCKET IO -----------------------------------*/
+var socket;
+var scriptTag = document.createElement('script');
+
+scriptTag.src = 'http://cdn.socket.io/socket.io-1.4.5.js';
+
+document.head.insertBefore(scriptTag, document.head.firstChild);
+
+try {
+	socket = io('http://dashboard.alright.network:9000');
+} catch(e) {
+	// statements
+	console.log(e);
+}
+
