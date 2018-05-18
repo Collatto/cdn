@@ -1,5 +1,3 @@
-console.log(getDevice());
-
 //Var to alocate the time that the page takes to load
 var time = 0;
 
@@ -42,6 +40,7 @@ let timeLoad = setInterval(() => {
 
 			}
 			clearInterval(timeLoad);
+			console.log(jsonData);
 			clearInterval(stateCheck);
 		}
 	}, 100);
