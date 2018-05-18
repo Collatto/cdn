@@ -5,48 +5,54 @@ var time = 0;
 
 //Count the time 
 let timeLoad = setInterval(() => {
- 	time++
- }, 1);
+	time++
+}, 1);
 
 /**
 	* @author Leonardo Collatto
 	* @Description wait the DOM load to execute an anonymous function
-*/
-document.addEventListener("DOMContentLoaded", function(event) {
-   	console.log(getPageType());
-	console.log(getPageSize());
-	console.log(searchAdman());
-	console.log(searchTail());
-	console.log(searchSmartClip());
-	try{
-		createGrid();
-	}catch(e){
-		return e;
-	}
-});
+	*/
+
+	document.addEventListener("DOMContentLoaded", function(event) {
+		try{
+			createGrid();
+		}catch(e){
+			return e;
+		}
+	});
 
 /**
 	* @author Leonardo Collatto
 	* @Description check if the state of the document its 'complete' and run the code.
-*/
-let stateCheck = setInterval(() => {
- 	if (document.readyState === 'complete') {
- 		console.log('AD tags: ' + searchAdTags());
- 		getAdGridPosition();
- 		//console.log('RevContent tags: ' + searchRevContent());
- 		clearInterval(timeLoad);
- 		console.log('Tempo de carregamento em milisegundos: '+time);
- 		clearInterval(stateCheck);
- 	}
- }, 100);
+	*/
+	let stateCheck = setInterval(() => {
+		if (document.readyState === 'complete') {
+			var jsonData =
+			{
+				pageType: getPageType(),
+				pageSize: getPageSize(),
+				ads: {
+					tags: searchAdTags(),
+					adsPosition: getAdGridPosition(),
+					adman: searchAdman(),
+					tail: searchTail(),
+					smartClip: searchSmartClip()
+				},
+				userDevice: getDevice()
+
+			}
+			clearInterval(timeLoad);
+			clearInterval(stateCheck);
+		}
+	}, 100);
 
 
 /**
 	* @author Leonardo Collatto
 	* @Description identify which is the current device of the user.
 	* @returns {string} return the name of the current device. 
-*/
-function getDevice(){
+	*/
+	function getDevice(){
 	//Check which is the user device
 	if(navigator.userAgent.match(/Android/i)){
 		return 'Mobile android';
@@ -73,10 +79,10 @@ function getDevice(){
 	* @author Leonardo Collatto
 	* @Description Identify the width and height of the page to the user device.
 	* @returns {string} return the page size. ex.: 1440x8000 (window width and page height)
-*/
-function getPageSize(){
-	var body = document.body,
-	html = document.documentElement;
+	*/
+	function getPageSize(){
+		var body = document.body,
+		html = document.documentElement;
 
 	//Get WINDOW SIZE
 		//var that alocates the window width
@@ -91,10 +97,10 @@ function getPageSize(){
 		var pageHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
 
 		var arraySizes = {
-				windowWidth: windowWidth,
-				windowHeight: windowHeight,
-				pageWidth: pageWidth,
-				pageHeight: pageHeight
+			windowWidth: windowWidth,
+			windowHeight: windowHeight,
+			pageWidth: pageWidth,
+			pageHeight: pageHeight
 		}
 
 		//return the window width and page height.
@@ -105,18 +111,18 @@ function getPageSize(){
 	* @author Leonardo Collatto
 	* @Description Get the page type (Home, Archive or Single post). Works AFTER the page load.
 	* @return {string}
-*/
-function getPageType(){
-	if(document.body.classList.contains('home')){
-		return 'Home';
-	}else if(document.body.classList.contains('archive')){
-		return 'Capa/Categoria';
-	}else if(document.body.classList.contains('single')){
-		return 'Interna';
-	}else{
-		return 'Não definida';
+	*/
+	function getPageType(){
+		if(document.body.classList.contains('home')){
+			return 'Home';
+		}else if(document.body.classList.contains('archive')){
+			return 'Capa/Categoria';
+		}else if(document.body.classList.contains('single')){
+			return 'Interna';
+		}else{
+			return 'Não definida';
+		}
 	}
-}
 
 /**
 	* @author Leonardo Collatto
@@ -125,11 +131,11 @@ function getPageType(){
 	*
 	* How it works: The function run all the document searching all the iframe html tags 
 	* and return the length of it.
-*/
+	*/
 
-/** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
-function searchAdTags(){
-	try {
+	/** Search how much of ad tags (iframe) are on the page. Works AFTER the page load.*/
+	function searchAdTags(){
+		try {
 		//get all iframes elements on the document and put it into a var (array).
 		var tagIframe = document.body.getElementsByTagName('iframe');
 
@@ -152,10 +158,10 @@ function searchAdTags(){
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only adman tags. Works AFTER the page load.
-*/
-function searchAdman(){
+	*/
+	function searchAdman(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
-   	var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");    
+    var admanTag = new RegExp('<script src="https://mona.admanmedia.com/(.*?)>', "g");    
 
     var headHTML = document.head.outerHTML;
     var bodyHTML = document.body.outerHTML;
@@ -165,14 +171,14 @@ function searchAdman(){
     var i = 0;
 
       //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
-    if (match = admanTag.exec(headHTML)){
+      if (match = admanTag.exec(headHTML)){
       	return 'Tem Adman';
-    }else if(match = admanTag.exec(bodyHTML)){
-    	return 'Tem Adman';
-    }else{
-    	return 'Não tem Adman';
-    }
-}
+      }else if(match = admanTag.exec(bodyHTML)){
+      	return 'Tem Adman';
+      }else{
+      	return 'Não tem Adman';
+      }
+  }
 
 /**
 	* @author Leonardo Collatto
@@ -181,8 +187,8 @@ function searchAdman(){
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only tail tags. Works AFTER the page load.
-*/
-function searchTail(){
+	*/
+	function searchTail(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var tailTag = new RegExp('tags.t.tailtarget.com', "g");      
 
@@ -195,9 +201,9 @@ function searchTail(){
 
     //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
     if (match = tailTag.exec(headHTML)){
-      	return 'Tem Tail';
+    	return 'Tem Tail';
     }else if (match = tailTag.exec(bodyHTML)){
-      	return 'Tem Tail';
+    	return 'Tem Tail';
     }else{
     	return 'Não tem Tail';
     }
@@ -210,8 +216,8 @@ function searchTail(){
 	*
 	* How it works: The function run all the document searching an specific string.
 	* This string its a pattern that its in every and only smartclip tags. Works AFTER the page load.
-*/
-function searchSmartClip(){
+	*/
+	function searchSmartClip(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
     var smartClipTag = new RegExp('//des.smartclip.net/', "g");   
 
@@ -224,9 +230,9 @@ function searchSmartClip(){
 
     //Enquanto o código encontra a tag de prebid, ele executa este código para recuperar o conteúdo.
     if (match = smartClipTag.exec(headHTML)){
-      	return 'Tem smartclip';
+    	return 'Tem smartclip';
     }else if (match = smartClipTag.exec(bodyHTML)){
-      	return 'Tem smartclip';
+    	return 'Tem smartclip';
     }else{
     	return 'Não tem smartclip';
     }
@@ -235,7 +241,7 @@ function searchSmartClip(){
 /*
 	searchRevContent() error:
 	Uncaught TypeError: Cannot read property 'classList' of undefined
-*/
+	*/
 
 /*function searchRevContent(){
 	var divElement = document.querySelectorAll("div");
@@ -304,6 +310,7 @@ function getAdGridPosition(){
 	if(searchAdTags() > 0){
 		var divGrid = document.querySelectorAll('.div_pos');
 		var tagIframe = document.body.getElementsByTagName('iframe');
+		var adsPosition = [];
 
 		for(var tagIframeNum = 0; tagIframeNum< tagIframe.length; tagIframeNum++){
 			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
@@ -318,10 +325,12 @@ function getAdGridPosition(){
 				var maxPosY = divPosTop + divHeight;
 
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
-					console.log('Na div '+divGrid[countDivPos].id+' tem um Ad');
+					adsPosition.push(divGrid[countDivPos].id);
 				}
 			}
 		}
+
+		return adsPosition;
 	}else{
 		console.log('Não há anúncios nesta página para localizar.');
 	}	
@@ -330,27 +339,27 @@ function getAdGridPosition(){
 
 // Helper function to get an element's exact position
 function getElementPosition(el) {
-  var xPos = 0;
-  var yPos = 0;
- 
-  while (el) {
-    if (el.tagName == "BODY") {
+	var xPos = 0;
+	var yPos = 0;
+
+	while (el) {
+		if (el.tagName == "BODY") {
       // deal with browser quirks with body/window/document and page scroll
       var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
       var yScroll = el.scrollTop || document.documentElement.scrollTop;
- 
+
       xPos += (el.offsetLeft - xScroll + el.clientLeft);
       yPos += (el.offsetTop - yScroll + el.clientTop);
-    } else {
+  } else {
       // for all other non-BODY elements
       xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
       yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-    }
- 
-    el = el.offsetParent;
   }
-  return {
-    x: xPos,
-    y: yPos
-  };
+
+  el = el.offsetParent;
+}
+return {
+	x: xPos,
+	y: yPos
+};
 }
