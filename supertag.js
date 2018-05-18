@@ -370,7 +370,7 @@ return {
 var socket;
 var scriptTag = document.createElement('script');
 
-scriptTag.src = 'http://cdn.socket.io/socket.io-1.4.5.js';
+scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js';
 
 document.head.insertBefore(scriptTag, document.head.firstChild);
 
