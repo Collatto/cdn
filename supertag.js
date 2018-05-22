@@ -373,7 +373,6 @@ return {
 
 /*------------------------------- SOCKET IO -----------------------------------*/
 function connectSocket(){
-	var socket;
 	let intervalConnectSocket = setInterval(function(){
 		try {
 			socket = io('http://dashboard.alright.network:9000');
