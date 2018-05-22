@@ -1,3 +1,7 @@
+var socket;
+var scriptTag = document.createElement('script');
+
+scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js';
 
 
 
@@ -17,6 +21,8 @@ let timeLoad = setInterval(() => {
 document.addEventListener("DOMContentLoaded", function(event) {
 	try{
 		createGrid();
+		document.head.insertBefore(scriptTag, document.head.firstChild);
+		connectSocket();
 	}catch(e){
 		return e;
 	}
@@ -367,17 +373,11 @@ return {
 
 
 /*------------------------------- SOCKET IO -----------------------------------*/
-var socket;
-var scriptTag = document.createElement('script');
-
-scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js';
-
-document.head.insertBefore(scriptTag, document.head.firstChild);
-
-try {
-	socket = io('http://dashboard.alright.network:9000');
-} catch(e) {
-	// statements
-	console.log(e);
+function connectSocket(){
+	try {
+		socket = io('http://dashboard.alright.network:9000');
+	} catch(e) {
+		// statements
+		console.log(e);
+	}
 }
-
