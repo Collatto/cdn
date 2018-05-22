@@ -367,7 +367,6 @@ return {
 /*------------------------------- SOCKET IO -----------------------------------*/
 try {
 	socket = io('http://dashboard.alright.network:9000');
-	clearInterval(intervalConnectSocket);
 } catch(e) {
 	// statements
 	console.log(e);
