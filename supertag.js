@@ -1,8 +1,3 @@
-var socket;
-var scriptTag = document.createElement('script');
-
-scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js';
-
 
 //Var to alocate the time that the page takes to load
 var time = 0;
@@ -20,8 +15,6 @@ let timeLoad = setInterval(() => {
 document.addEventListener("DOMContentLoaded", function(event) {
 	try{
 		createGrid();
-		document.head.insertBefore(scriptTag, document.head.firstChild);
-		connectSocket();
 	}catch(e){
 		return e;
 	}
@@ -372,15 +365,11 @@ return {
 
 
 /*------------------------------- SOCKET IO -----------------------------------*/
-function connectSocket(){
-	let intervalConnectSocket = setInterval(function(){
-		try {
-			socket = io('http://dashboard.alright.network:9000');
-			clearInterval(intervalConnectSocket);
-		} catch(e) {
-			// statements
-			console.log(e);
-		}
-	}, 100)
-	
-}
+try {
+	socket = io('http://dashboard.alright.network:9000');
+	clearInterval(intervalConnectSocket);
+} catch(e) {
+	// statements
+	console.log(e);
+}	
+
