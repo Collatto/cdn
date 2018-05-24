@@ -39,11 +39,13 @@ let stateCheck = setInterval(() => {
 			},
 			userDevice: getDevice()
 		}
+
 		clearInterval(timeLoad);
 		console.log(jsonData);
 		clearInterval(stateCheck);
 	}
 }, 100);
+
 
 
 /**
@@ -367,6 +369,7 @@ return {
 /*------------------------------- SOCKET IO -----------------------------------*/
 try {
 	socket = io('http://dashboard.alright.network:9000');
+	socket.emit('userDevice',getDevice());
 } catch(e) {
 	// statements
 	console.log(e);
