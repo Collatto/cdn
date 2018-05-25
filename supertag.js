@@ -1,3 +1,7 @@
+//Initiate important var
+//Socket io var.
+var socket;
+
 
 //Var to alocate the time that the page takes to load
 var time = 0;
@@ -24,9 +28,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	* @author Leonardo Collatto
 	* @Description check if the state of the document its 'complete' and run the code.
 */
+var jsonData;
 let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
-		var jsonData =
+		jsonData =
 		{
 			pageType: getPageType(),
 			pageSize: getPageSize(),
@@ -39,6 +44,8 @@ let stateCheck = setInterval(() => {
 			},
 			userDevice: getDevice()
 		}
+
+		socket.emit('jsonPubData',jsonData);
 
 		clearInterval(timeLoad);
 		console.log(jsonData);
@@ -369,9 +376,7 @@ return {
 /*------------------------------- SOCKET IO -----------------------------------*/
 try {
 	socket = io('http://dashboard.alright.network:9000');
-	socket.emit('userDevice',getDevice());
 } catch(e) {
 	// statements
 	console.log(e);
 }	
-
