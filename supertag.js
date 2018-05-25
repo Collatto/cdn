@@ -19,6 +19,11 @@ let timeLoad = setInterval(() => {
 document.addEventListener("DOMContentLoaded", function(event) {
 	try{
 		createGrid();
+
+		jsonUserData = {userDevice: getDevice(),pageType: getPageType()};
+
+		socket.emit('jsonUserData',jsonUserData);
+		
 	}catch(e){
 		return e;
 	}
@@ -44,8 +49,6 @@ let stateCheck = setInterval(() => {
 			},
 			userDevice: getDevice()
 		}
-
-		socket.emit('jsonPubData',jsonData);
 
 		clearInterval(timeLoad);
 		console.log(jsonData);
