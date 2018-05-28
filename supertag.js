@@ -2,7 +2,6 @@
 //Socket io var.
 var socket;
 
-
 //Var to alocate the time that the page takes to load
 var time = 0;
 
@@ -17,6 +16,7 @@ let timeLoad = setInterval(() => {
 */
 
 document.addEventListener("DOMContentLoaded", function(event) {
+	console.log('DOM Loaded');
 	try{
 		createGrid();
 
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 var jsonData;
 let stateCheck = setInterval(() => {
 	if (document.readyState === 'complete') {
+		console.log('Load finished');
 		jsonData =
 		{
 			pageType: getPageType(),
@@ -168,7 +169,7 @@ function searchAdTags(){
 	* @returns {string} If there is a adman tag return 'Tem Adman' else 'Não tem Adman'
 	*
 	* How it works: The function run all the document searching an specific string.
-	* This string its a pattern that its in every and only adman tags. Works AFTER the page load.
+	* This string its a pattern that its in every and only adman tags. Works AFTER the page loads.
 */
 function searchAdman(){
     //Cria um RegExp para capturar o conteúdo dentro da tag informada.
