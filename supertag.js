@@ -337,7 +337,12 @@ function getAdGridPosition(){
 				var maxPosY = divPosTop + divHeight;
 
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
-					adsPosition.push(divGrid[countDivPos].id);
+					var adData = {
+						adGridPos: divGrid[countDivPos].id,
+						adYDis: tagIframePosTop,
+						adXDis:	tagIframePosLeft
+					}
+					adsPosition.push(adData);
 				}
 			}
 		}
