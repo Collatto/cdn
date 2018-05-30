@@ -341,8 +341,8 @@ function getAdGridPosition(){
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
 					var adData = {
 						adGridPos: divGrid[countDivPos].id,
-						adYDis: tagIframePosTop,
-						adXDis:	tagIframePosLeft,
+						adYDis: tagIframe[tagIframeNum].offsetTop,
+						adXDis:	tagIframe[tagIframeNum].offsetLeft,
 						adSizeX: tagIframeSizeX,
 						adSizeY: tagIframeSizeY
 					}
