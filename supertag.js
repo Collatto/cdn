@@ -328,8 +328,8 @@ function getAdGridPosition(){
 			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
 				var tagIframePosTop = getElementPosition(tagIframe[tagIframeNum]).y;
 				var tagIframePosLeft = getElementPosition(tagIframe[tagIframeNum]).x;
-				var tagIframeSizeX = tagIframe[tagIframeNum].innerWidth;
-				var tagIframeSizeY = tagIframe[tagIframeNum].innerHeight;
+				var tagIframeSizeX = tagIframe[tagIframeNum].clientWidth;
+				var tagIframeSizeY = tagIframe[tagIframeNum].clientHeight;
 				var divPosTop = getElementPosition(divGrid[countDivPos]).y;
 				var divPosLeft = getElementPosition(divGrid[countDivPos]).x;
 				var divWidth = divGrid[countDivPos].offsetWidth;
@@ -341,8 +341,8 @@ function getAdGridPosition(){
 				if(tagIframePosTop >= divPosTop && tagIframePosLeft >= divPosLeft && tagIframePosLeft < maxPosX && tagIframePosTop < maxPosY){
 					var adData = {
 						adGridPos: divGrid[countDivPos].id,
-						adYDis: tagIframe[tagIframeNum].offsetTop,
-						adXDis:	tagIframe[tagIframeNum].offsetLeft,
+						adYDis: tagIframePosTop,
+						adXDis:	tagIframePosLeft,
 						adSizeX: tagIframeSizeX,
 						adSizeY: tagIframeSizeY
 					}
@@ -352,6 +352,8 @@ function getAdGridPosition(){
 		}
 
 		return adsPosition;
+
+		
 	}else{
 		console.log('Não há anúncios nesta página para localizar.');
 	}	
