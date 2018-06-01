@@ -51,6 +51,8 @@ let stateCheck = setInterval(() => {
 			userDevice: getDevice()
 		}
 
+		socket.emit('pubData',jsonData);
+
 		clearInterval(timeLoad);
 		console.log(jsonData);
 		clearInterval(stateCheck);
