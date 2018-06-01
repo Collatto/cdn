@@ -328,8 +328,8 @@ function getAdGridPosition(){
 			for(var countDivPos = 0; countDivPos < divGrid.length; countDivPos++){
 				var tagIframePosTop = getElementPosition(tagIframe[tagIframeNum]).y;
 				var tagIframePosLeft = getElementPosition(tagIframe[tagIframeNum]).x;
-				var tagIframeSizeX = tagIframe[tagIframeNum].clientWidth;
-				var tagIframeSizeY = tagIframe[tagIframeNum].clientHeight;
+				var tagIframeSizeX = tagIframe[tagIframeNum].style.width;
+				var tagIframeSizeY = tagIframe[tagIframeNum].style.height;
 				var divPosTop = getElementPosition(divGrid[countDivPos]).y;
 				var divPosLeft = getElementPosition(divGrid[countDivPos]).x;
 				var divWidth = divGrid[countDivPos].offsetWidth;
