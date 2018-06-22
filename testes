@@ -11,7 +11,7 @@
 			});
 
 			var e=[{
-				code:"BB_1",
+				code:"BB_4",
                mediaTypes: {
               		banner: {
 						sizes: [[970,250],[970,90],[728,90]]
@@ -49,8 +49,8 @@
 								{size:"970x250",bid:.01},{size:"970x90",bid:.01},{size:"728x90",bid:.01},
 								{"default":!0,bid:.01}
 								]),
-							_ASO.Prebid.clientRenderAd("BB_1",39145))
+							_ASO.Prebid.clientRenderAd("BB_4",39145))
 					},
 					timeout:PREBID_TIMEOUT
 				})
-			});</script><div id="BB_1" style="width:970px; height:250px; display:block; margin:0 auto; display:table-cell;vertical-align:middle;text-align: center;"></div>
+			});</script><div id="BB_4" style="width:970px; height:250px; display:block; margin:0 auto; display:table-cell;vertical-align:middle;text-align: center;"></div>
