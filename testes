@@ -1,0 +1,56 @@
+<script type="text/javascript" src="//media.aso1.net/js/code.min.js" async></script>
+<script type="text/javascript" src="//media.aso1.net/js/prebid_utils_beta.js" async></script>
+<script type="text/javascript" src="//media.aso1.net/js/prebid1.js" async></script>
+<script>		var PREBID_TIMEOUT=900,
+		_aso=_aso||[],
+		pbjs=pbjs||{};pbjs.que=pbjs.que||[],
+		pbjs.logging=!0,
+		pbjs.que.push(function(){
+			pbjs.setConfig({
+				priceGranularity: "dense"
+			});
+
+			var e=[{
+				code:"BB_1",
+               mediaTypes: {
+              		banner: {
+						sizes: [[970,250],[970,90],[728,90]]
+                   }
+               },
+				bids:[
+									{
+					bidder:"aol",
+					params:{
+						network:"11204.1",
+						placement:"4799433"
+					}
+				},
+				{
+					bidder:"aol",
+					params:{
+						network:"11204.1",
+						placement:"4856361"
+					}
+				},
+				{
+					bidder:"aol",
+					params:{
+						network:"11204.1",
+						placement:"4799434"
+					}
+				}
+				]}
+				];
+
+				pbjs.addAdUnits(e),pbjs.requestBids({
+					bidsBackHandler:function(e){
+						pbjs.adserverRequestSent||(pbjs.adserverRequestSent=!0,
+							_ASO.Prebid.setMinimumBid([
+								{size:"970x250",bid:.01},{size:"970x90",bid:.01},{size:"728x90",bid:.01},
+								{"default":!0,bid:.01}
+								]),
+							_ASO.Prebid.clientRenderAd("BB_1",39145))
+					},
+					timeout:PREBID_TIMEOUT
+				})
+			});</script><div id="BB_1" style="width:970px; height:250px; display:block; margin:0 auto; display:table-cell;vertical-align:middle;text-align: center;"></div>
